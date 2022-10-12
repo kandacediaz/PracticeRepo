@@ -33,6 +33,8 @@ This set of data is contained and collected by the United States Wind Turbine Da
 
 The variable of interest where we will investigate the outcome in the project is the capacity of the turbine project. The three predictor variables that will help us determine our outcome will be the number of turbines at the project site, the total turbine height(meters), and the diameter of the turbine rotors(meters).
 
+This is an edit in Github
+
 
 ```{r}
 library(ggplot2)
