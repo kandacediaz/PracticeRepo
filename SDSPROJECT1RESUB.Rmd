@@ -1,0 +1,135 @@
+---
+title: "SDS PROJECT 1 RESUB"
+date: "2022-10-09"
+output:
+  html_document: default
+---
+```{r global_options, echo=FALSE}
+knitr::opts_chunk$set(fig.height=3, fig.width=4, warning=FALSE, tidy=TRUE, tidy.opts=list(width.cutoff=60))
+
+
+
+```
+***
+
+
+``` {r}
+('images/59aeb27432bcd87615d27978 (1).png')
+
+
+
+
+```
+
+## Data Variables and Background Information
+
+This set of data includes variables of the characteristics that make up wind turbines at different wind turbine sites in the United States. The variables in data set consist of measurements of wind turbine parts such as the hub height, rotor diameter, and the total height of the turbines (all measured in meters).
+
+The variables in the data set also include the characteristics of the site of the wind turbines such as the exact longitude and latitude of the location of the site, the county and state of the site, the number of turbines at each site, and the year of which the site was first active.
+
+There are also variables in the data set that describe the function of the turbines such as the turbine capacity(measured in kilowatts), the capacity of the site project(measured in megawatts), and the area of which the turbines swept from each rotation.
+
+This set of data is contained and collected by the United States Wind Turbine Data Base, where majority of the turbines are on a utility-scale. The utility-scale turbines are used to generate power for the grid, that supplies homeowners and business owners with power. The database is updates every three months.
+
+The variable of interest where we will investigate the outcome in the project is the capacity of the turbine project. The three predictor variables that will help us determine our outcome will be the number of turbines at the project site, the total turbine height(meters), and the diameter of the turbine rotors(meters).
+
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(png)
+projectdata <-read.csv('Project1_wind_turbines (1).csv')
+
+
+```
+
+
+
+
+```{r}
+projectdata_ggplot <- ggplot(projectdata)
+projectdata_ggplot+geom_histogram(aes(x=Project.Capacity))
+median(projectdata$Project.Capacity)
+summary(projectdata$Project.Capacity)
+
+
+
+```
+
+## Project Capacity Descriptive Statistics
+
+The distribution of the electrical generation capacity of the turbine projects(megawatts) is skewed to the right. The median of the capacity generated is `r median(projectdata$Project.Capacity)`. The first quartile of the distribution is equal to `r summary(projectdata$Project.Capacity)[2]` megawatts, and the third quartile of the distribution is equal `r summary(projectdata$Project.Capacity)[5]` megawatts.
+
+
+
+```{r}
+projectdata_ggplot+geom_point(aes(y=Project.Capacity, x=Turbine.Rotor_Diameter))
+ cor(projectdata$Turbine.Rotor_Diameter,projectdata$Project.Capacity,use='complete.obs')
+ projectdata_ggplot+geom_boxplot(aes(y=Project.Capacity, x=Turbine.Rotor_Diameter))
+
+
+```
+
+## R Coefficient of Rotor Diameter and Project Capacity
+
+The R coefficient was equal to `r cor(projectdata$Turbine.Rotor_Diameter,projectdata$Project.Capacity,use='complete.obs')`, therefore there was no correlation between the size of the diameter of the turbine's rotor(meters) and the generation of electrical capacity from the turbines(megawatts). The data in the graph is not uniform and is skewed to the left.
+
+``` {r}
+## The Total Height of the Turbine and relationship between the Project Capacity
+projectdata_ggplot+geom_point(aes(y=Project.Capacity, x=Turbine.Total_Height))
+
+
+cor(projectdata$Turbine.Total_Height,projectdata$Project.Capacity,use='complete.obs')
+projectdata_ggplot+geom_boxplot(aes(y=Project.Capacity, x=Turbine.Total_Height))
+
+
+
+```
+
+## R Coefficient of Total Turbine Height and Project Capacity
+
+
+The R coefficient was equal to `r cor(projectdata$Turbine.Total_Height,projectdata$Project.Capacity,use='complete.obs')`, therefore there was no correlation between the height of the entire turbine(meters) and the generation of electrical capacity from the turbines(megawatts). The data in the graph is not uniform and is skewed to the left.
+
+
+``` {r}
+projectdata_ggplot+geom_point(aes(y=Project.Capacity, x=Project.Number_Turbines))
+
+cor(projectdata$Project.Number_Turbines,projectdata$Project.Capacity,use='complete.obs')
+projectdata_ggplot+geom_boxplot(aes(y=Project.Capacity, x=Project.Number_Turbines))
+
+
+
+
+```
+
+## R Coefficient of Number of Turbines in Project and Project Capacity
+
+
+The R coefficient was equal to `r cor(projectdata$Project.Number_Turbines,projectdata$Project.Capacity,use='complete.obs')`, therefore there was no correlation between the number of turbines at the site of the turbine project and the generation of electrical capacity from the turbines(megawatts). The data in the graph is not uniform and is skewed to the left.
+
+
+
+
+## What can we conclude?
+
+We can conclude that our predictor variables have no correlation with our outcome variable. Since the R Coefficients for the variables were not close to the number 1 or -1, there was no correlation. This means that the diameter of the turbine rotor, height of the turbine, and number of turbines at each project site do not contribute to how much power the turbine sites generate. In this project, our goal was to see if size of turbines matter, and if the bigger the turbines and the turbine sites were, if more electricity would be generated, which was not the case. 
+
+
+## What are some areas where we can improve our data set?
+
+Some variables that could be added to further investigate in our data set could be the type of terrain that the project sites are located at, and if the project site is in a rural or suburban area. We can also investigate if the project site has ever needed any repairs, and if so when and how often they were repaired.
+
+
+## References
+
+
+[Wind Turbines CSV File](https://think.cs.vt.edu/corgis/csv/wind_turbines/)
+
+[United States Wind Turbine Database](https://www.sciencebase.gov/catalog/item/57bdfd8fe4b03fd6b7df5ff9)
+
+[Download Wind Turbine transparent PNG](http://www.stickpng.com/img/objects/wind-turbines/wind-turbine)
+
+
+
+
